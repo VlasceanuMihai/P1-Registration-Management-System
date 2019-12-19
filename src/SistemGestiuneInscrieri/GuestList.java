@@ -37,7 +37,7 @@ public class GuestList {
                 /*System.out.println("[" + guest.getLastName() + " " + guest.getFirstName() + "] Felicitari! Locul tau la " +
                         "eveniment este confirmat. Te asteptam!\n");*/
                 return 0;
-            }else if (!bool && this.guestsList.size() == this.numberOfSeats){
+            }else if (!bool && this.guestsList.size() >= this.numberOfSeats){
                 this.waitingList.add(guest);
                 /*System.out.println("[" + guest.getLastName() + " " + guest.getFirstName() + "] Te-ai inscris cu succes " +
                         "in lista de asteptare si ai primit numarul de ordine" + this.waitingList.indexOf(guest) + ". " +
@@ -81,10 +81,10 @@ public class GuestList {
             if (bool){
                 this.guestsList.remove(guest);
                 this.guestsList.add(this.waitingList.get(0));
-                System.out.println("Guest a fost stearsa de pe Guest List!");
+                System.out.println(guest.getLastName() + " " + guest.getFirstName() + " a fost stearsa de pe Guest List!");
                 return true;
             }else {
-                System.out.println("Guest nu era inscrisa pe Guest List!");
+                System.out.println(guest.getLastName() + " " + guest.getFirstName() + " nu era inscrisa pe Guest List!");
                 return false;
             }
         }

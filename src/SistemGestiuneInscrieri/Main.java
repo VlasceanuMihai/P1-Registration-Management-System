@@ -34,15 +34,37 @@ public class Main {
                     System.out.println("Se adauga o noua persoana...");
                     System.out.println("Introduceti numele de familie: ");
                     String lastName = scanner.next();
+                    for (int i = 0; i < lastName.length(); i++){
+                        if (!Character.isLetter(lastName.charAt(i))){
+                            System.out.println("*** Numele trebuie sa contina doar litere! ***");
+                            i = 0;
+                            lastName = scanner.next();
+                        }
+                    }
+
                     System.out.println("Introduceti prenumele: ");
                     String firstName = scanner.next();
+                    for (int i = 0; i < firstName.length(); i++){
+                        if (!Character.isLetter(firstName.charAt(i))){
+                            System.out.println("*** Prenumele trebuie sa contina doar litere! ***");
+                            firstName = scanner.next();
+                        }
+                    }
+
                     System.out.println("Introduceti email: ");
                     String email = scanner.next();
+
                     System.out.println("Introduceti numarul de telefon (format „+40733386463“): ");
                     String phoneNumber = scanner.next();
+                    for (int i = 0; i < phoneNumber.length(); i++){
+                        if (!Character.isDigit(phoneNumber.charAt(i))){
+                            System.out.println("*** Numarul de telefon trebuie sa contina doar cifre! ***");
+                            phoneNumber = scanner.next();
+                        }
+                    }
 
                     Guest guest = new Guest(lastName, firstName, email, phoneNumber);
-
+                    System.out.println(guest);
                     int addGuestValue = guestList.addGuest(guest);
                     if (addGuestValue == 0){
                         System.out.println("[" + guest.getLastName() + " " + guest.getFirstName() + "] Felicitari! Locul tau la " +

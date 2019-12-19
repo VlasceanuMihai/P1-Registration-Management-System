@@ -51,6 +51,7 @@ public class Guest {
     @Override
     public boolean equals(Object object){
         if (this == object){
+            System.out.println("this == object");
             return true;
         }
 

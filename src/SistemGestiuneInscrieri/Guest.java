@@ -51,14 +51,13 @@ public class Guest {
     @Override
     public boolean equals(Object object){
         if (this == object){
-            System.out.println("this == object");
             return true;
         }
 
-        if (object == null){
+        /*if (object == null){
             System.out.println("Datele nu au fost completate!");
             return true;
-        }
+        }*/
 
         if (this.getClass() != object.getClass()){
             return true;

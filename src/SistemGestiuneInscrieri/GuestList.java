@@ -10,61 +10,63 @@ public class GuestList {
     private Guest theGuest;
 
 
-    public GuestList(int numberOfSeats){
+    GuestList(int numberOfSeats){
         this.numberOfSeats = numberOfSeats;
     }
 
 
     // cautarea unei persoane dupa atributele clasei Guest
-    public boolean isEqual(Guest guest, Guest otherGuest){
-        return guest.equals(otherGuest);
+    private boolean isEqual(Guest currentGuest, Guest addedGuest){
+        return currentGuest.equals(addedGuest);
     }
 
 
     // 1. Adaugarea unei noi persoane (inscrise)
-    public int addGuest(Guest guest){
+    int add(Guest guest){
+        if (guest == null){
+            return 404;
+        }
+
         if (this.guestsList.isEmpty()){
             this.guestsList.add(guest);
-            /*System.out.println("[" + guest.getLastName() + " " + guest.getFirstName() + "] Felicitari! Locul tau la " +
-                    "eveniment este confirmat. Te asteptam!");*/
             return 0;
         }
 
+        boolean bool = false;
         for (int i = 0; i < this.guestsList.size(); i++){
-            boolean bool = this.isEqual(guest, this.guestsList.get(i));
-            if (!bool && (this.guestsList.size() < this.numberOfSeats)){
-                this.guestsList.add(guest);
-                /*System.out.println("[" + guest.getLastName() + " " + guest.getFirstName() + "] Felicitari! Locul tau la " +
-                        "eveniment este confirmat. Te asteptam!\n");*/
-                return 0;
-            }else if (!bool && this.guestsList.size() >= this.numberOfSeats){
-                this.waitingList.add(guest);
-                /*System.out.println("[" + guest.getLastName() + " " + guest.getFirstName() + "] Te-ai inscris cu succes " +
-                        "in lista de asteptare si ai primit numarul de ordine" + this.waitingList.indexOf(guest) + ". " +
-                        "Te vom notifica daca un loc devine disponibil.\n");*/
-                return this.waitingList.indexOf(guest) + 1;
+            bool = this.isEqual(guest, this.guestsList.get(i));
+            if (bool){
+                return -1; // daca persoana a fost deja inscrisa la eveniment
             }
         }
 
-//        System.out.println("[" + guest.getLastName() + " " + guest.getFirstName() + "] Esti deja inscris!");
-        return -1; // daca persoana a fost deja inscrisa la eveniment
+        if (!bool && this.guestsList.size() < this.numberOfSeats){
+            this.guestsList.add(guest);
+            return 0;
+        }else if(!bool && this.guestsList.size() >= this.numberOfSeats){
+            this.waitingList.add(guest);
+            return this.waitingList.indexOf(guest) + 1;
+        }
+
+        return 404;
     }
 
 
     // 2. Determina daca o persoana este inscrisa la eveniment (in oricare lista).
-    public boolean findGuest(Guest guest){
-        for (int j = 0; j < this.guestsList.size(); j++){
-            boolean bool = this.isEqual(guest, this.guestsList.get(j));
+    boolean check(Guest guest){
+        boolean bool = false;
+        for (int i = 0; i < this.guestsList.size(); i++){
+            bool = this.isEqual(guest, this.guestsList.get(i));
             if (bool){
-                System.out.println(guest.getLastName() + " " + guest.getFirstName() + " se afla pe Guest List!");
+                System.out.println("[" + this.guestsList.get(i).getLastName() + " " + this.guestsList.get(i).getFirstName() + "] Te afli pe Guest List, pozitia " + (this.guestsList.indexOf(guest) + 1) + "!");
                 return true;
             }
         }
 
         for (int i = 0; i < this.waitingList.size(); i++){
-            boolean bool = this.isEqual(guest, this.guestsList.get(i));
+            bool = this.isEqual(guest, this.waitingList.get(i));
             if (bool){
-                System.out.println(guest.getLastName() + " " + guest.getFirstName() + " se afla pe Waiting List!");
+                System.out.println("[" + this.waitingList.get(i).getLastName() + " " + this.waitingList.get(i).getFirstName() + "] Te afli pe Waiting List, pozitia "+ (this.waitingList.indexOf(guest) + 1) + "!");
                 return true;
             }
         }
@@ -75,9 +77,29 @@ public class GuestList {
 
 
     // 3. eliminarea unei persoane (inscrise)
-    public boolean removeAddedGuest(Guest guest){
+    boolean remove(String emailOrPhoneNumberField){
         for (int i = 0; i < this.guestsList.size(); i++){
-            boolean bool = this.isEqual(guest, guestsList.get(i));
+            String emailOrPhoneNumber = this.guestsList.get(i).getEmail();
+            System.out.println("Email from list -> " + emailOrPhoneNumber);
+            System.out.println("Current email -> " + emailOrPhoneNumberField);
+
+            // trebuie sa verific daca waitingList == null
+            if (emailOrPhoneNumberField.equalsIgnoreCase(emailOrPhoneNumber) && !this.waitingList.isEmpty()){
+                this.guestsList.remove(this.guestsList.get(i));
+                this.guestsList.add(this.waitingList.get(0));
+                this.waitingList.remove(this.waitingList.get(0));
+                return true; // persoana a fost stearsa cu succes
+            }else if (emailOrPhoneNumberField.equalsIgnoreCase(emailOrPhoneNumber) && this.waitingList.isEmpty()){
+                this.guestsList.remove(this.guestsList.get(i));
+                return true; // persoana a fost stearsa cu succes
+            }
+        }
+
+        return false; // eroare: persoana nu era inscrisa
+
+        /*boolean bool = false;
+        for (int i = 0; i < this.guestsList.size(); i++){
+            bool = this.isEqual(guest, guestsList.get(i));
             if (bool){
                 this.guestsList.remove(guest);
                 this.guestsList.add(this.waitingList.get(0));
@@ -88,6 +110,24 @@ public class GuestList {
                 return false;
             }
         }
+        return false;*/
+    }
+
+
+    public boolean remove(String lastName, String firstName){
+        /*boolean bool = false;
+        for (int i = 0; i < this.guestsList.size(); i++){
+            bool = this.isEqual(guest, guestsList.get(i));
+            if (bool){
+                this.guestsList.remove(guest);
+                this.guestsList.add(this.waitingList.get(0));
+                System.out.println(guest.getLastName() + " " + guest.getFirstName() + " a fost stearsa de pe Guest List!");
+                return true;
+            }else {
+                System.out.println(guest.getLastName() + " " + guest.getFirstName() + " nu era inscrisa pe Guest List!");
+                return false;
+            }
+        }*/
 
         return false;
     }

@@ -3,7 +3,7 @@ package SistemGestiuneInscrieri;
 import java.util.Scanner;
 
 public class Main {
-    private static void inputLastName(String lastName, Scanner scanner){
+    private static String inputLastName(String lastName, Scanner scanner){
         for (int i = 0; i < lastName.length(); i++){
             if (!Character.isLetter(lastName.charAt(i))){
                 System.out.println("*** Numele trebuie sa contina doar litere! ***");
@@ -11,30 +11,145 @@ public class Main {
                 lastName = scanner.next();
             }
         }
+        return lastName;
     }
 
 
-    private static void inputFirstName(String firstName, Scanner scanner){
+    private static String inputFirstName(String firstName, Scanner scanner){
         for (int i = 0; i < firstName.length(); i++){
             if (!Character.isLetter(firstName.charAt(i))){
                 System.out.println("*** Prenumele trebuie sa contina doar litere! ***");
                 firstName = scanner.next();
             }
         }
+        return firstName;
     }
 
 
-    private static void inputPhoneNumber(String phoneNumber, Scanner scanner){
+    private static String inputPhoneNumber(String phoneNumber, Scanner scanner){
         for (int i = 0; i < phoneNumber.length(); i++){
             if (!Character.isDigit(phoneNumber.charAt(i))){
                 System.out.println("*** Numarul de telefon trebuie sa contina doar cifre! ***");
                 phoneNumber = scanner.next();
             }
         }
+        return phoneNumber;
     }
 
 
-    public static void main(String[] args) {
+    private static void selectFieldToUpdate(Scanner scanner, GuestList guestList, String lastName, String firstName){
+        System.out.println("Alege campul de actualizat, tastand:\n" +
+                "1 - Nume\n" +
+                "2 - Prenume\n" +
+                "3 - Email\n" +
+                "4 - Numar de telefon (format \"+40733386463\")\n");
+
+        int fieldToUpdate = scanner.nextInt();
+        if (fieldToUpdate == 1) {
+            System.out.println("Introduceti numele de familie actualizat: ");
+            String lastNameUpdated = scanner.next();
+            lastName = inputLastName(lastName, scanner);
+
+
+        }
+
+    }
+
+
+    private static void checkRemoveUpdate(Scanner scanner, GuestList guestList, String keyWord) throws Exception {
+        int authenticationNumber = scanner.nextInt();
+
+        if (keyWord.equalsIgnoreCase("check")){
+            if (authenticationNumber == 1){
+                System.out.println("Introduceti numele de familie: ");
+                String lastName = scanner.next();
+                lastName = inputLastName(lastName, scanner);
+
+                System.out.println("Introduceti prenumele: ");
+                String firstName = scanner.next();
+                firstName = inputFirstName(firstName, scanner);
+                guestList.check(lastName, firstName);
+            }else if(authenticationNumber == 2){
+                System.out.println("Introduceti email: ");
+                String email = scanner.next();
+                guestList.check(email);
+            }else if (authenticationNumber == 3) {
+                System.out.println("Introduceti numarul de telefon (format „0733386463“): ");
+                String phoneNumber = scanner.next();
+                phoneNumber = inputPhoneNumber(phoneNumber, scanner);
+                guestList.check(phoneNumber);
+            }
+
+        }else if (keyWord.equalsIgnoreCase("remove")){
+            if (authenticationNumber == 1){
+                System.out.println("Introduceti numele de familie: ");
+                String lastName = scanner.next();
+                lastName = inputLastName(lastName, scanner);
+
+                System.out.println("Introduceti prenumele: ");
+                String firstName = scanner.next();
+                firstName = inputFirstName(firstName, scanner);
+                if (guestList.remove(lastName, firstName)) {
+                    System.out.println("Stergerea persoanei s-a realizat cu succes.");
+                }else {
+                    System.out.println("Eroare: persoana nu era inscrisa");
+                }
+            }else if(authenticationNumber == 2){
+                System.out.println("Introduceti email: ");
+                String email = scanner.next();
+                if (guestList.remove(email)) {
+                    System.out.println("Stergerea persoanei s-a realizat cu succes.");
+                }else {
+                    System.out.println("Eroare: persoana nu era inscrisa");
+                }
+            }else if (authenticationNumber == 3){
+                System.out.println("Introduceti numarul de telefon (format „0733386463“): ");
+                String phoneNumber = scanner.next();
+                phoneNumber = inputPhoneNumber(phoneNumber, scanner);
+                if (guestList.remove(phoneNumber)) {
+                    System.out.println("Stergerea persoanei s-a realizat cu succes.");
+                }else {
+                    System.out.println("Eroare: persoana nu era inscrisa");
+                }
+            }
+
+        }else if (keyWord.equalsIgnoreCase("update")){
+                if (authenticationNumber == 1){
+                    System.out.println("Introduceti numele de familie: ");
+                    String lastName = scanner.next();
+                    lastName = inputLastName(lastName, scanner);
+
+                    System.out.println("Introduceti prenumele: ");
+                    String firstName = scanner.next();
+                    firstName = inputFirstName(firstName, scanner);
+
+                    if (guestList.updateInfo(lastName, firstName)){
+                        System.out.println("Autentificare reusita!");
+                    }
+                }else if(authenticationNumber == 2){
+                    System.out.println("Introduceti email: ");
+                    String email = scanner.next();
+
+                    if(guestList.updateInfo(email)){
+                        System.out.println("Autentificare reusita!");
+
+                    }
+                }else if (authenticationNumber == 3){
+                    System.out.println("Introduceti numarul de telefon (format „0733386463“): ");
+                    String phoneNumber = scanner.next();
+                    phoneNumber = inputPhoneNumber(phoneNumber, scanner);
+
+                    if(guestList.updateInfo(phoneNumber)){
+                        System.out.println("Autentificare reusita!");
+
+                    }
+                }
+        }
+    }
+
+
+
+    public static void main(String[] args) throws Exception {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Bun venit! Introduceti numarul de locuri disponibile:");
         int numberOfSeats = scanner.nextInt();
@@ -93,11 +208,24 @@ public class Main {
                     }
 
                     guestList.guestsList();
+                    guestList.waitList();
                     System.out.println();
                     break;
 
                 case "check":
-                    System.out.println("Se cauta o persoana in Guest List si Wait List...");
+                    System.out.println("Se cauta o persoana in Guest List si Waiting List…");
+                    System.out.println("Alege modul de autentificare, tastand:\n" +
+                            "1 - Nume si prenume\n" +
+                            "2 - Email\n" +
+                            "3 - Numar de telefon (format \"+40733386463\")");
+
+                    checkRemoveUpdate(scanner, guestList, keyWord); // check
+                    guestList.guestsList();
+                    guestList.waitList();
+                    System.out.println();
+                    break;
+
+                    /*System.out.println("Se cauta o persoana in Guest List si Wait List...");
                     System.out.println("Introduceti numele de familie: ");
                     lastName = scanner.next();
                     inputLastName(lastName, scanner);
@@ -108,6 +236,7 @@ public class Main {
 
                     System.out.println("Introduceti email: ");
                     email = scanner.next();
+                    inputPhoneNumber(email, scanner);
 
                     System.out.println("Introduceti numarul de telefon (format „0733386463“): ");
                     phoneNumber = scanner.next();
@@ -115,7 +244,7 @@ public class Main {
 
                     guest = new Guest(lastName, firstName, email, phoneNumber);
                     guestList.check(guest);
-                    break;
+                    break;*/
 
                 case "remove":
                     System.out.println("Se sterge o persoana existenta din lista…");
@@ -124,34 +253,20 @@ public class Main {
                             "2 - Email\n" +
                             "3 - Numar de telefon (format \"+40733386463\")");
 
-                    int authenticationNumber = scanner.nextInt();
-                    if (authenticationNumber == 1){
-                        System.out.println("Introduceti numele de familie: ");
-                        lastName = scanner.next();
-                        inputLastName(lastName, scanner);
-
-                        System.out.println("Introduceti prenumele: ");
-                        firstName = scanner.next();
-                        inputFirstName(firstName, scanner);
-                        guestList.remove(lastName, firstName);
-                    }else if(authenticationNumber == 2){
-                        System.out.println("Introduceti email: ");
-                        email = scanner.next();
-                        if (guestList.remove(email)) {
-                            System.out.println("Stergerea persoanei s-a realizat cu succes.");
-                        }else {
-                            System.out.println("Eroare: persoana nu era inscrisa");
-                        }
-                    }else if (authenticationNumber == 3){
-                        System.out.println("Introduceti numarul de telefon (format „0733386463“): ");
-                        phoneNumber = scanner.next();
-                        inputPhoneNumber(phoneNumber, scanner);
-                        guestList.remove(phoneNumber);
-                    }
+                    checkRemoveUpdate(scanner, guestList, keyWord);
                     guestList.guestsList();
                     break;
 
                 case "update":
+                    System.out.println("Se actualizeaza datele unei persoane…");
+                    System.out.println("Alege modul de autentificare, tastand:\n" +
+                            "1 - Nume si prenume\n" +
+                            "2 - Email\n" +
+                            "3 - Numar de telefon (format \"+40733386463\")");
+
+                    checkRemoveUpdate(scanner, guestList, keyWord);
+
+                    guestList.guestsList();
                     break;
 
                 case "guests":
@@ -166,7 +281,7 @@ public class Main {
                     break;
             }
 
-            System.out.println("Asteapta comanda: (help - Afiseaza lista de comenzi)");
+            System.out.println("\nAsteapta comanda: (help - Afiseaza lista de comenzi)");
             keyWord = scanner.next();
         }
     }

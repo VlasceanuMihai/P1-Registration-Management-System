@@ -2,13 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fa99335e-19fc-416d-8d5e-d264118a39de" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/[P1]SistemGestiuneInscrieri/SistemGestiuneInscrieri/Guest.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/[P1]SistemGestiuneInscrieri/SistemGestiuneInscrieri/Guest.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/[P1]SistemGestiuneInscrieri/SistemGestiuneInscrieri/GuestList.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/[P1]SistemGestiuneInscrieri/SistemGestiuneInscrieri/GuestList.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/SistemGestiuneInscrieri/Guest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/SistemGestiuneInscrieri/Guest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/[P1]SistemGestiuneInscrieri/SistemGestiuneInscrieri/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/[P1]SistemGestiuneInscrieri/SistemGestiuneInscrieri/Main.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/SistemGestiuneInscrieri/GuestList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/SistemGestiuneInscrieri/GuestList.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/SistemGestiuneInscrieri/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/SistemGestiuneInscrieri/Main.java" afterDir="false" />
     </list>
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -43,18 +44,6 @@
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
   </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
-    </option>
-  </component>
   <component name="RunManager">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="SistemGestiuneInscrieri.Main" />
@@ -75,6 +64,18 @@
       </list>
     </recent_temporary>
   </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
+  </component>
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -90,6 +91,8 @@
       <workItem from="1576576939251" duration="17200000" />
       <workItem from="1576779711678" duration="8509000" />
       <workItem from="1576828981570" duration="22996000" />
+      <workItem from="1577009155819" duration="7681000" />
+      <workItem from="1577029748697" duration="5980000" />
     </task>
     <servers />
   </component>
@@ -110,34 +113,46 @@
     </option>
   </component>
   <component name="WindowStateProjectService">
+    <state x="565" y="194" key="#Updates" timestamp="1577008967900">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="565" y="194" key="#Updates/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1577008967900" />
     <state x="765" y="220" key="#com.intellij.ide.util.MemberChooser" timestamp="1576524943831">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="765" y="220" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1576524943831" />
-    <state width="1877" height="317" key="GridCell.Tab.0.bottom" timestamp="1576788461683">
+    <state x="331" y="170" key="CommitChangelistDialog2" timestamp="1577053130368">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="317" key="GridCell.Tab.0.bottom/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1576788461683" />
-    <state width="1877" height="317" key="GridCell.Tab.0.center" timestamp="1576788461681">
+    <state x="331" y="170" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1577053130368" />
+    <state width="1877" height="582" key="GridCell.Tab.0.bottom" timestamp="1577014124469">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="317" key="GridCell.Tab.0.center/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1576788461681" />
-    <state width="1877" height="317" key="GridCell.Tab.0.left" timestamp="1576788461681">
+    <state width="1877" height="582" key="GridCell.Tab.0.bottom/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1577014124469" />
+    <state width="1877" height="582" key="GridCell.Tab.0.center" timestamp="1577014124469">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="317" key="GridCell.Tab.0.left/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1576788461681" />
-    <state width="1877" height="317" key="GridCell.Tab.0.right" timestamp="1576788461682">
+    <state width="1877" height="582" key="GridCell.Tab.0.center/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1577014124469" />
+    <state width="1877" height="582" key="GridCell.Tab.0.left" timestamp="1577014124469">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="317" key="GridCell.Tab.0.right/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1576788461682" />
-    <state x="656" y="343" key="com.intellij.ide.util.TipDialog" timestamp="1576779717942">
+    <state width="1877" height="582" key="GridCell.Tab.0.left/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1577014124469" />
+    <state width="1877" height="582" key="GridCell.Tab.0.right" timestamp="1577014124469">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="582" key="GridCell.Tab.0.right/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1577014124469" />
+    <state x="656" y="343" key="com.intellij.ide.util.TipDialog" timestamp="1577029758914">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="-1264" y="343" key="com.intellij.ide.util.TipDialog/0.0.1920.1040/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1576522593336" />
-    <state x="656" y="343" key="com.intellij.ide.util.TipDialog/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1576779717942" />
+    <state x="656" y="343" key="com.intellij.ide.util.TipDialog/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1577029758914" />
     <state x="769" y="436" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1576783860494">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="769" y="436" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1576783860494" />
+    <state x="690" y="285" key="extract.method.dialog" timestamp="1576931469827">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="690" y="285" key="extract.method.dialog/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1576931469827" />
   </component>
 </project>

@@ -1,7 +1,7 @@
 package SistemGestiuneInscrieri;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class GuestList {
     private int numberOfSeats;
@@ -53,7 +53,7 @@ public class GuestList {
 
 
     // 2. Determina daca o persoana este inscrisa la eveniment (in oricare lista).
-    boolean check(Guest guest){
+    public boolean check(Guest guest){
         boolean bool = false;
         for (int i = 0; i < this.guestsList.size(); i++){
             bool = this.isEqual(guest, this.guestsList.get(i));
@@ -76,74 +76,210 @@ public class GuestList {
     }
 
 
-    // 3. eliminarea unei persoane (inscrise)
-    boolean remove(String emailOrPhoneNumberField){
-        for (int i = 0; i < this.guestsList.size(); i++){
-            String emailOrPhoneNumber = this.guestsList.get(i).getEmail();
-            System.out.println("Email from list -> " + emailOrPhoneNumber);
-            System.out.println("Current email -> " + emailOrPhoneNumberField);
+    public boolean check(String lastName, String firstName) throws Exception {
+        if (this.guestsList.isEmpty()){
+            throw new Exception("Guest List este goala!");
+        }
 
-            // trebuie sa verific daca waitingList == null
-            if (emailOrPhoneNumberField.equalsIgnoreCase(emailOrPhoneNumber) && !this.waitingList.isEmpty()){
+        for (int i = 0; i < this.guestsList.size(); i++){
+            String lastNameFromList = this.guestsList.get(i).getLastName();
+            String firstNameFromList = this.guestsList.get(i).getFirstName();
+
+            if (lastName.equalsIgnoreCase(lastNameFromList) &&
+                    firstName.equalsIgnoreCase(firstNameFromList)){
+                System.out.println("[" + this.guestsList.get(i).getLastName() + " " + this.guestsList.get(i).getFirstName() + "] Te afli pe Guest List, pozitia " + (this.guestsList.indexOf(this.guestsList.get(i)) + 1) + "!");
+                return true;
+            }
+        }
+
+        if (this.waitingList.isEmpty()){
+            throw new Exception("Waiting List este goala!");
+        }
+
+        for (int i = 0; i < this.waitingList.size(); i++){
+            String lastNameFromList = this.waitingList.get(i).getLastName();
+            String firstNameFromList = this.waitingList.get(i).getFirstName();
+
+            if (lastName.equalsIgnoreCase(lastNameFromList) &&
+                    firstName.equalsIgnoreCase(firstNameFromList)){
+                System.out.println("[" + this.waitingList.get(i).getLastName() + " " + this.waitingList.get(i).getFirstName() + "] Te afli pe Waiting List, pozitia "+ (this.waitingList.indexOf(this.waitingList.get(i)) + 1) + "!");
+                return true;
+            }
+        }
+
+        System.out.println("Nu te aflii pe niciuna din liste!");
+        return false;
+    }
+
+
+    public boolean check(String emailOrPhoneNumber) throws Exception {
+        if (this.guestsList.isEmpty()){
+            throw new Exception("Guest List este goala!");
+        }
+
+        for (int i = 0; i < this.guestsList.size(); i++){
+            String emailFromList = this.guestsList.get(i).getEmail();
+            String phoneNumberFromList = this.guestsList.get(i).getPhoneNumber();
+
+            if (isStringOnlyNumeric(emailOrPhoneNumber)){
+                // isPhoneNumber
+                if (emailOrPhoneNumber.equalsIgnoreCase(phoneNumberFromList)) {
+                    System.out.println("[" + this.guestsList.get(i).getLastName() + " " + this.guestsList.get(i).getFirstName() + "] Te afli pe Guest List, pozitia " + (this.guestsList.indexOf(this.guestsList.get(i)) + 1) + "!");
+                    return true;
+                }
+            }else {
+                // isEmail
+                if (emailOrPhoneNumber.equalsIgnoreCase(emailFromList)){
+                    System.out.println("[" + this.guestsList.get(i).getLastName() + " " + this.guestsList.get(i).getFirstName() + "] Te afli pe Guest List, pozitia "+ (this.guestsList.indexOf(this.guestsList.get(i)) + 1) + "!");
+                    return true;
+                }
+            }
+        }
+
+        if (this.waitingList.isEmpty()){
+            throw new Exception("Waiting List este goala!");
+        }
+
+        for (int i = 0; i < this.waitingList.size(); i++){
+            String emailFromList = this.waitingList.get(i).getEmail();
+            String phoneNumberFromList = this.waitingList.get(i).getPhoneNumber();
+
+            if (isStringOnlyNumeric(emailOrPhoneNumber)){
+                // isPhoneNumber
+                if (emailOrPhoneNumber.equalsIgnoreCase(phoneNumberFromList)) {
+                    System.out.println("[" + this.waitingList.get(i).getLastName() + " " + this.waitingList.get(i).getFirstName() + "] Te afli pe Waiting List, pozitia " + (this.waitingList.indexOf(this.waitingList.get(i)) + 1) + "!");
+                    return true;
+                }
+            }else {
+                // isEmail
+                if (emailOrPhoneNumber.equalsIgnoreCase(emailFromList)){
+                    System.out.println("[" + this.waitingList.get(i).getLastName() + " " + this.waitingList.get(i).getFirstName() + "] Te afli pe Waiting List, pozitia "+ (this.waitingList.indexOf(this.waitingList.get(i)) + 1) + "!");
+                    return true;
+                }
+            }
+        }
+
+        System.out.println("Nu te aflii pe niciuna din liste!");
+        return false;
+    }
+
+
+
+    // 3. eliminarea unei persoane (inscrise)
+    private static boolean isStringOnlyNumeric(String str)
+    {
+        return ((str != null)
+                && (!str.equals(""))
+                && (str.matches("^[0-9]*$")));
+    }
+
+
+    public boolean remove(String lastName, String firstName) throws Exception {
+        if (this.guestsList.isEmpty()){
+            throw new Exception("Guest List este goala!");
+        }
+
+        for (int i = 0; i < this.guestsList.size(); i++){
+            String lastNameFromList = this.guestsList.get(i).getLastName();
+            String firstNameFromList = this.guestsList.get(i).getFirstName();
+
+            if (lastNameFromList.equalsIgnoreCase(lastName) &&
+                    firstNameFromList.equalsIgnoreCase(firstName) &&
+                    !this.waitingList.isEmpty()){
                 this.guestsList.remove(this.guestsList.get(i));
                 this.guestsList.add(this.waitingList.get(0));
                 this.waitingList.remove(this.waitingList.get(0));
                 return true; // persoana a fost stearsa cu succes
-            }else if (emailOrPhoneNumberField.equalsIgnoreCase(emailOrPhoneNumber) && this.waitingList.isEmpty()){
+            }else if (lastNameFromList.equalsIgnoreCase(lastName) &&
+                    firstNameFromList.equalsIgnoreCase(firstName) &&
+                    this.waitingList.isEmpty()){
                 this.guestsList.remove(this.guestsList.get(i));
                 return true; // persoana a fost stearsa cu succes
             }
         }
 
         return false; // eroare: persoana nu era inscrisa
-
-        /*boolean bool = false;
-        for (int i = 0; i < this.guestsList.size(); i++){
-            bool = this.isEqual(guest, guestsList.get(i));
-            if (bool){
-                this.guestsList.remove(guest);
-                this.guestsList.add(this.waitingList.get(0));
-                System.out.println(guest.getLastName() + " " + guest.getFirstName() + " a fost stearsa de pe Guest List!");
-                return true;
-            }else {
-                System.out.println(guest.getLastName() + " " + guest.getFirstName() + " nu era inscrisa pe Guest List!");
-                return false;
-            }
-        }
-        return false;*/
     }
 
 
-    public boolean remove(String lastName, String firstName){
-        /*boolean bool = false;
-        for (int i = 0; i < this.guestsList.size(); i++){
-            bool = this.isEqual(guest, guestsList.get(i));
-            if (bool){
-                this.guestsList.remove(guest);
-                this.guestsList.add(this.waitingList.get(0));
-                System.out.println(guest.getLastName() + " " + guest.getFirstName() + " a fost stearsa de pe Guest List!");
-                return true;
-            }else {
-                System.out.println(guest.getLastName() + " " + guest.getFirstName() + " nu era inscrisa pe Guest List!");
-                return false;
-            }
-        }*/
+    public boolean remove(String emailOrPhoneNumber) throws Exception {
+        if (this.guestsList.isEmpty()){
+            throw new Exception("Guest List este goala!");
+        }
 
+        for (int i = 0; i < this.guestsList.size(); i++){
+            String emailFromList = this.guestsList.get(i).getEmail();
+            String phoneNumberFromList = this.guestsList.get(i).getPhoneNumber();
+
+            if (isStringOnlyNumeric(emailOrPhoneNumber)){
+                // isPhoneNumber
+                if (emailOrPhoneNumber.equalsIgnoreCase(phoneNumberFromList) && !this.waitingList.isEmpty()){
+                    this.guestsList.remove(this.guestsList.get(i));
+                    this.guestsList.add(this.waitingList.get(0));
+                    this.waitingList.remove(this.waitingList.get(0));
+                    return true; // persoana a fost stearsa cu succes
+                }else if (emailOrPhoneNumber.equalsIgnoreCase(phoneNumberFromList) && this.waitingList.isEmpty()){
+                    this.guestsList.remove(this.guestsList.get(i));
+                    return true; // persoana a fost stearsa cu succes
+                }
+            }else {
+                // isEmail
+                if (emailOrPhoneNumber.equalsIgnoreCase(emailFromList) && !this.waitingList.isEmpty()){
+                    this.guestsList.remove(this.guestsList.get(i));
+                    this.guestsList.add(this.waitingList.get(0));
+                    this.waitingList.remove(this.waitingList.get(0));
+                    return true; // persoana a fost stearsa cu succes
+                }else if (emailOrPhoneNumber.equalsIgnoreCase(emailFromList) && this.waitingList.isEmpty()){
+                    this.guestsList.remove(this.guestsList.get(i));
+                    return true; // persoana a fost stearsa cu succes
+                }
+            }
+        }
+
+        return false; // eroare: persoana nu era inscrisa
+    }
+
+
+
+    // 4. Actualizarea detaliilor unei persoane inscrise
+    public boolean updateInfo(String lastName, String firstName) throws Exception {
+        if (this.guestsList.isEmpty()){
+            throw new Exception("Guest List este goala!");
+        }
+
+        for (int i = 0; i < this.guestsList.size(); i++){
+            String lastNameFromList = this.guestsList.get(i).getLastName();
+            String firstNameFromList = this.guestsList.get(i).getFirstName();
+
+            if (lastName.equalsIgnoreCase(lastNameFromList) &&
+                    firstName.equalsIgnoreCase(firstNameFromList)){
+                return true;
+            }
+        }
         return false;
     }
 
 
-    // 4. Actualizarea detaliilor unei persoane inscrise
-    public void updateInfo(Guest guest, String lastName, String firstName, String email, String phoneNumber){
-        for (int i = 0; i < this.guestsList.size(); i++){
-            boolean bool = this.isEqual(guest, this.guestsList.get(i));
-            if (bool){
-                guest.setLastName(lastName); ////// ??????? cum fac sa actualizez doar 1 camp
-                guest.setFirstName(firstName);
-                guest.setEmail(email);
-                guest.setPhoneNumber(phoneNumber);
+    public boolean updateInfo(String emailOrPhoneNumber) throws Exception {
+        if (this.guestsList.isEmpty()){
+            throw new Exception("Guest List este goala!");
+        }
+
+        for (int i = 0; i < this.guestsList.size(); i++) {
+            String emailFromList = this.guestsList.get(i).getEmail();
+            String phoneNumberFromList = this.guestsList.get(i).getPhoneNumber();
+
+            if (isStringOnlyNumeric(emailOrPhoneNumber)) {
+                if (emailOrPhoneNumber.equalsIgnoreCase(phoneNumberFromList)){
+                    return true;
+                }
+            }else {
+                if (emailOrPhoneNumber.equalsIgnoreCase(emailFromList)){
+                    return true;
+                }
             }
         }
+        return false;
     }
 
 

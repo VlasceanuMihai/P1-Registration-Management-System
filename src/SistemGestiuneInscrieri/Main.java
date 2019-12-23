@@ -37,25 +37,6 @@ public class Main {
     }
 
 
-    private static void selectFieldToUpdate(Scanner scanner, GuestList guestList, String lastName, String firstName){
-        System.out.println("Alege campul de actualizat, tastand:\n" +
-                "1 - Nume\n" +
-                "2 - Prenume\n" +
-                "3 - Email\n" +
-                "4 - Numar de telefon (format \"+40733386463\")\n");
-
-        int fieldToUpdate = scanner.nextInt();
-        if (fieldToUpdate == 1) {
-            System.out.println("Introduceti numele de familie actualizat: ");
-            String lastNameUpdated = scanner.next();
-            lastName = inputLastName(lastName, scanner);
-
-
-        }
-
-    }
-
-
     private static void checkRemoveUpdate(Scanner scanner, GuestList guestList, String keyWord) throws Exception {
         int authenticationNumber = scanner.nextInt();
 
@@ -113,37 +94,87 @@ public class Main {
                 }
             }
 
-        }else if (keyWord.equalsIgnoreCase("update")){
-                if (authenticationNumber == 1){
-                    System.out.println("Introduceti numele de familie: ");
-                    String lastName = scanner.next();
-                    lastName = inputLastName(lastName, scanner);
+        }
+    }
 
-                    System.out.println("Introduceti prenumele: ");
-                    String firstName = scanner.next();
-                    firstName = inputFirstName(firstName, scanner);
 
-                    if (guestList.updateInfo(lastName, firstName)){
-                        System.out.println("Autentificare reusita!");
-                    }
-                }else if(authenticationNumber == 2){
-                    System.out.println("Introduceti email: ");
-                    String email = scanner.next();
+    public static Guest sigInUpdateMethod(Scanner scanner, GuestList guestList) throws Exception {
+        int authenticationNumber = scanner.nextInt();
 
-                    if(guestList.updateInfo(email)){
-                        System.out.println("Autentificare reusita!");
+        if (authenticationNumber == 1){
+            System.out.println("Introduceti numele de familie: ");
+            String lastName = scanner.next();
+            lastName = inputLastName(lastName, scanner);
 
-                    }
-                }else if (authenticationNumber == 3){
-                    System.out.println("Introduceti numarul de telefon (format „0733386463“): ");
-                    String phoneNumber = scanner.next();
-                    phoneNumber = inputPhoneNumber(phoneNumber, scanner);
+            System.out.println("Introduceti prenumele: ");
+            String firstName = scanner.next();
+            firstName = inputFirstName(firstName, scanner);
 
-                    if(guestList.updateInfo(phoneNumber)){
-                        System.out.println("Autentificare reusita!");
+            if (guestList.signInForUpdate(lastName, firstName) != null){
+                System.out.println("Autentificare reusita!");
+                return guestList.signInForUpdate(lastName, firstName);
+            }else {
+                return null;
+            }
+        }else if(authenticationNumber == 2){
+            System.out.println("Introduceti email: ");
+            String email = scanner.next();
 
-                    }
-                }
+            if (guestList.signInForUpdate(email) != null){
+                System.out.println("Autentificare reusita!");
+                return guestList.signInForUpdate(email);
+            }else{
+                return null;
+            }
+        }else if (authenticationNumber == 3){
+            System.out.println("Introduceti numarul de telefon (format „0733386463“): ");
+            String phoneNumber = scanner.next();
+            phoneNumber = inputPhoneNumber(phoneNumber, scanner);
+
+            if (guestList.signInForUpdate(phoneNumber) != null){
+                System.out.println("Autentificare reusita!");
+                return guestList.signInForUpdate(phoneNumber);
+            }else {
+                return null;
+            }
+        }
+
+        System.out.println("Numar invalid!");
+        return null;
+    }
+
+
+    private static void selectFieldToUpdate(GuestList guestList, Guest guest) throws Exception {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Alege campul de actualizat, tastand:\n" +
+                "1 - Nume\n" +
+                "2 - Prenume\n" +
+                "3 - Email\n" +
+                "4 - Numar de telefon (format \"+40733386463\")\n");
+
+        int fieldToUpdate = scanner.nextInt();
+        if (fieldToUpdate == 1){
+            System.out.println("Se actualizeaza numele de familie: ");
+            String lastNameUpdated = scanner.next();
+            lastNameUpdated = inputLastName(lastNameUpdated, scanner);
+            guestList.update(guest, fieldToUpdate, lastNameUpdated);
+
+        }else if(fieldToUpdate == 2){
+            System.out.println("Se actualizeaza prenumele: ");
+            String firstNameUpdated = scanner.next();
+            firstNameUpdated = inputFirstName(firstNameUpdated, scanner);
+            guestList.update(guest, fieldToUpdate, firstNameUpdated);
+
+        }else if (fieldToUpdate == 3){
+            System.out.println("Se actualizeaza email: ");
+            String emailUpdated = scanner.next();
+            guestList.update(guest, fieldToUpdate, emailUpdated);
+
+        }else if (fieldToUpdate == 4){
+            System.out.println("Se actualizeaza numarul de telefon (format „0733386463“): ");
+            String phoneNumberUpdated = scanner.next();
+            phoneNumberUpdated = inputPhoneNumber(phoneNumberUpdated, scanner);
+            guestList.update(guest, fieldToUpdate, phoneNumberUpdated);
         }
     }
 
@@ -207,7 +238,9 @@ public class Main {
                                 "Te vom notifica daca un loc devine disponibil.");
                     }
 
+                    System.out.println("Guest List: ");
                     guestList.guestsList();
+                    System.out.println("Waiting List: ");
                     guestList.waitList();
                     System.out.println();
                     break;
@@ -220,9 +253,11 @@ public class Main {
                             "3 - Numar de telefon (format \"+40733386463\")");
 
                     checkRemoveUpdate(scanner, guestList, keyWord); // check
+                    /*System.out.println("Guest List: ");
                     guestList.guestsList();
+                    System.out.println("Waiting List: ");
                     guestList.waitList();
-                    System.out.println();
+                    System.out.println();*/
                     break;
 
                     /*System.out.println("Se cauta o persoana in Guest List si Wait List...");
@@ -254,7 +289,11 @@ public class Main {
                             "3 - Numar de telefon (format \"+40733386463\")");
 
                     checkRemoveUpdate(scanner, guestList, keyWord);
+                    System.out.println("Guest List: ");
                     guestList.guestsList();
+                    System.out.println("Waiting List: ");
+                    guestList.waitList();
+                    System.out.println();
                     break;
 
                 case "update":
@@ -264,12 +303,43 @@ public class Main {
                             "2 - Email\n" +
                             "3 - Numar de telefon (format \"+40733386463\")");
 
-                    checkRemoveUpdate(scanner, guestList, keyWord);
-
+                    Guest guestToUpdate = sigInUpdateMethod(scanner, guestList);
+                    selectFieldToUpdate(guestList, guestToUpdate);
+                    System.out.println("Guest List: ");
                     guestList.guestsList();
+                    System.out.println("Waiting List: ");
+                    guestList.waitList();
+                    System.out.println();
                     break;
 
                 case "guests":
+                    guestList.guestsList();
+                    break;
+
+                case "waitlist":
+                    guestList.waitList();
+                    break;
+
+                case "available":
+                    System.out.println("Numarul de locuri ramase: " + guestList.availableSeats());
+                    break;
+
+                case "guests_no":
+                    System.out.println("Numarul de participanti: " + guestList.guestsNo());
+                    break;
+
+                case "waitlist_no":
+                    System.out.println("Dimensiunea listei de asteptare: " + guestList.waitListNo());
+                    break;
+
+                case "subscribe_no":
+                    System.out.println("Numarul total de persoane: " + guestList.subscribeNo());
+                    break;
+
+                case "search":
+                    System.out.println("Introduceti sirul de caractere: ");
+                    String string = scanner.next();
+                    guestList.search(string);
                     break;
 
                 case "quit":

@@ -242,7 +242,7 @@ public class GuestList {
 
 
     // 4. Actualizarea detaliilor unei persoane inscrise
-    public boolean updateInfo(String lastName, String firstName) throws Exception {
+        public Guest signInForUpdate(String lastName, String firstName) throws Exception {
         if (this.guestsList.isEmpty()){
             throw new Exception("Guest List este goala!");
         }
@@ -253,14 +253,15 @@ public class GuestList {
 
             if (lastName.equalsIgnoreCase(lastNameFromList) &&
                     firstName.equalsIgnoreCase(firstNameFromList)){
-                return true;
+                return this.guestsList.get(i);
             }
         }
-        return false;
+
+        return null;
     }
 
 
-    public boolean updateInfo(String emailOrPhoneNumber) throws Exception {
+    public Guest signInForUpdate(String emailOrPhoneNumber) throws Exception {
         if (this.guestsList.isEmpty()){
             throw new Exception("Guest List este goala!");
         }
@@ -271,14 +272,43 @@ public class GuestList {
 
             if (isStringOnlyNumeric(emailOrPhoneNumber)) {
                 if (emailOrPhoneNumber.equalsIgnoreCase(phoneNumberFromList)){
-                    return true;
+                    return this.guestsList.get(i);
                 }
             }else {
                 if (emailOrPhoneNumber.equalsIgnoreCase(emailFromList)){
-                    return true;
+                    return this.guestsList.get(i);
                 }
             }
         }
+
+        return null;
+    }
+
+
+    public boolean update(Guest guest, int fieldToUpdate, String field) throws Exception {
+        if (this.guestsList.isEmpty()){
+            throw new Exception("Guest List este goala!");
+        }
+
+        if (fieldToUpdate == 1){
+            guest.setLastName(field);
+            System.out.println("Datele au fost actualizate cu succes!");
+            return true;
+        }else if (fieldToUpdate == 2){
+            guest.setFirstName(field);
+            System.out.println("Datele au fost actualizate cu succes!");
+            return true;
+        }else if (fieldToUpdate == 3){
+            guest.setEmail(field);
+            System.out.println("Datele au fost actualizate cu succes!");
+            return true;
+        }else if (fieldToUpdate == 4){
+            guest.setPhoneNumber(field);
+            System.out.println("Datele au fost actualizate cu succes!");
+            return true;
+        }
+
+        System.out.println("Datele nu au fost actualizate!");
         return false;
     }
 
@@ -315,11 +345,11 @@ public class GuestList {
 
     // 7. Obtinerea numarului de locuri disponibile in lista de participare
     public int availableSeats(){
-        if (this.guestsList.size() == this.numberOfSeats){
-            return 0;
-        }else {
-            return this.numberOfSeats - this.guestsList.size();
+        if (this.guestsList.isEmpty()){
+            System.out.println("Guest List este goala…");
         }
+
+        return this.numberOfSeats - this.guestsList.size();
     }
 
 

@@ -1,5 +1,6 @@
 package SistemGestiuneInscrieri;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
@@ -339,7 +340,8 @@ public class Main {
                 case "search":
                     System.out.println("Introduceti sirul de caractere: ");
                     String string = scanner.next();
-                    guestList.search(string);
+                    ArrayList<Guest> contactsList = guestList.search(string);
+                    System.out.println("Contacts List: \n" + contactsList);
                     break;
 
                 case "quit":

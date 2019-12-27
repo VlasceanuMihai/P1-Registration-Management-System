@@ -372,32 +372,24 @@ public class GuestList {
 
 
     // 11. Cautare partiala, dupa un subsir de caractere:
-    public ArrayList<String> search(String substring){
-        ArrayList<String> contactsList = new ArrayList<String>();
+    public ArrayList<Guest> search(String substring){
+        ArrayList<Guest> contactsList = new ArrayList<Guest>();
 
         for (int i = 0; i < this.guestsList.size(); i++){
+            String lastNameField = this.guestsList.get(i).getLastName();
+            String firstNameField = this.guestsList.get(i).getFirstName();
             String emailField = this.guestsList.get(i).getEmail();
             String phoneNumberField = this.guestsList.get(i).getPhoneNumber();
-            String secondNameField = this.guestsList.get(i).getLastName();
-            String firstNameField = this.guestsList.get(i).getFirstName();
 
-            if (emailField.contains(substring)){
-                contactsList.add(emailField);
+            if (lastNameField.contains(substring)){
+                contactsList.add(this.guestsList.get(i));
+            }else if (firstNameField.contains(substring)){
+                contactsList.add(this.guestsList.get(i));
+            }else if (emailField.contains(substring)){
+                contactsList.add(this.guestsList.get(i));
+            }else if (phoneNumberField.contains(substring)){
+                contactsList.add(this.guestsList.get(i));
             }
-
-            if (phoneNumberField.contains(substring)){
-                contactsList.add(phoneNumberField);
-            }
-
-            if (secondNameField.contains(substring)){
-                contactsList.add(secondNameField);
-            }
-
-            if (firstNameField.contains(substring)){
-                contactsList.add(firstNameField);
-            }
-
-
         }
 
         return contactsList;

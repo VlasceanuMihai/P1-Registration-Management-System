@@ -285,7 +285,7 @@ public class Main {
 
 
     // Restore from 'save.dat' file
-    private static GuestList restore() throws EOFException {
+    private static GuestList restore() throws EOFException, IOException, ClassNotFoundException {
         GuestList restoreGuestList = null;
 
         try (ObjectInputStream binaryFileIn = new ObjectInputStream(
@@ -308,7 +308,7 @@ public class Main {
 
 
 
-    public static void main(String[] args) throws NullPointerException, IOException, EOFException {
+    public static void main(String[] args) throws NullPointerException, EOFException, IOException, ClassNotFoundException  {
         try (Scanner scanner = new Scanner(System.in)) {
             GuestList guestList = restore();
 
@@ -437,7 +437,7 @@ public class Main {
                 keyWord = scanner.next();
             }
 
-            System.out.println("Quit!");
+            System.out.println("Quit! Save successful!");
             saveFile(guestList);
         }
     }

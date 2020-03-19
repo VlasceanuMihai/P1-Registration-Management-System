@@ -1,6 +1,8 @@
 package SistemGestiuneInscrieri;
 
-public class Guest {
+import java.io.Serializable;
+
+public class Guest implements Serializable {
     private String lastName;
     private String firstName;
     private String email;
@@ -54,13 +56,12 @@ public class Guest {
             return true;
         }
 
-        /*if (object == null){
-            System.out.println("Datele nu au fost completate!");
-            return true;
-        }*/
+        if (object == null){
+            throw new NullPointerException();
+        }
 
         if (this.getClass() != object.getClass()){
-            return true;
+            return false;
         }
 
         Guest guestObject = (Guest) object;
